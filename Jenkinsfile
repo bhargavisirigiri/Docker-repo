@@ -3,14 +3,15 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
-        IMAGE_NAME = "bhargavisirigiri8890/docker-repo"
+        IMAGE_NAME = "bhargavi8890/docker-repo"
     }
 
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} ."
+                    echo "🚧 Building Docker image..."
+                    sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
                 }
             }
         }
@@ -18,7 +19,8 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 script {
-                    sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
+                    echo "🔑 Logging in to Docker Hub..."
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 }
             }
         }
@@ -26,7 +28,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+                    echo "📤 Pushing Docker image..."
+                    sh 'docker push ${IMAGE_NAME}:${BUILD_NUMBER}'
                 }
             }
         }
@@ -34,7 +37,7 @@ pipeline {
 
     post {
         success {
-            echo "✅ Docker image pushed successfully to Docker Hub!"
+            echo "✅ Image pushed successfully!"
         }
         failure {
             echo "❌ Build or Push failed!"
