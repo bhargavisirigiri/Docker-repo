@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'bhargavisirigiri8890/mypythonapp'  // change to your Docker Hub repo name
+        IMAGE_NAME = 'bhargavisirigiri8890/Docker-repo'  // change to your Docker Hub repo name
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred-id')
     }
 
