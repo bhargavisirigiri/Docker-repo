@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')  // Jenkins credentials ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
         IMAGE_NAME = "bhargavisirigiri8890/docker-repo"
     }
 
@@ -34,11 +34,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Docker image pushed successfully!"
+            echo "✅ Docker image pushed successfully to Docker Hub!"
         }
         failure {
             echo "❌ Build or Push failed!"
         }
     }
 }
-
